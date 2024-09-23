@@ -8,13 +8,6 @@ class WebviewScrollViewDelegate: NSObject, UIScrollViewDelegate {
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false
     }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let webview = webview {
-            scrollView.bounds = webview.bounds
-            scrollView.zoomScale = webview.pageZoom
-        }
-    }
 }
 
 struct ContentView: View {
@@ -34,7 +27,8 @@ struct WebView: UIViewRepresentable {
         let webView = WKWebView()
         
         webView.scrollView.contentInsetAdjustmentBehavior = .never
-        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.isScrollEnabled = true
+        webView.scrollView.bounces = false
         webView.scrollView.delegate = webviewScrollViewDelegate
         webviewScrollViewDelegate.webview = webView
         
